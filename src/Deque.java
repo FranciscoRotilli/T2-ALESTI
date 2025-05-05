@@ -1,4 +1,4 @@
-public class Deque<T> implements Lista{
+public class Deque<T> implements Lista<T>{
     private No cabeca;
     private No cauda;
 
@@ -8,12 +8,12 @@ public class Deque<T> implements Lista{
     }
 
     @Override
-    public Object obterRegistro(int posicao) {
+    public T obterRegistro(int posicao) {
         return null;
     }
 
     @Override
-    public Object removerRegistro(int posicao) {
+    public T removerRegistro(int posicao) {
         return null;
     }
 
@@ -43,12 +43,12 @@ public class Deque<T> implements Lista{
     }
 
     @Override
-    public Object[] reverterLista() {
-        return new Object[0];
+    public T[] reverterLista() {
+        return null;
     }
 
     @Override
-    public Object obterUltimoRegistro() {
+    public T obterUltimoRegistro() {
         return null;
     }
 

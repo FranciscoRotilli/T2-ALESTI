@@ -1,4 +1,7 @@
 public class Deque<T> implements Lista{
+    private No cabeca;
+    private No cauda;
+
     @Override
     public void adicionarRegistro(Object dado) {
 

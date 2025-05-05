@@ -70,7 +70,7 @@ public class Deque<T> implements Lista<T>{
 
     @Override
     public boolean estaVazia() {
-        return false;
+        return tamanho == 0;
     }
 
     @Override

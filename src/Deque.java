@@ -1,20 +1,61 @@
 public class Deque<T> implements Lista<T>{
-    private No cabeca;
-    private No cauda;
+    private No<T> cabeca;
+    private No<T> cauda;
+    private int tamanho;
+
+    public Deque() {
+        this.cabeca = null;
+        this.cauda = null;
+        this.cabeca.proximo = cauda;
+        this.cauda.anterior = cabeca;
+        this.tamanho = 0;
+    }
 
     @Override
-    public void adicionarRegistro(Object dado) {
-
+    public void adicionarRegistro(T dado) {
+        No<T> novoNo = new No<>(dado);
+        if (cabeca.proximo == null) {
+            cabeca.proximo = novoNo;
+            novoNo.anterior = cabeca;
+        } else {
+            No<T> anterior = cauda.anterior;
+            anterior.proximo = novoNo;
+            novoNo.anterior = anterior;
+        }
+        novoNo.proximo = cauda;
+        cauda.anterior = novoNo;
+        tamanho++;
     }
 
     @Override
     public T obterRegistro(int posicao) {
-        return null;
+        verificarIndice(posicao);
+        No<T> atual = cabeca;
+        for (int i = 0; i < posicao; i++) {
+            atual = atual.proximo;
+        }
+        return atual.dado;
     }
 
     @Override
     public T removerRegistro(int posicao) {
-        return null;
+        verificarIndice(posicao);
+        No<T> atual = cabeca;
+        if (posicao == 0) {
+            T removido = cabeca.dado;
+            cabeca = cabeca.proximo;
+            tamanho--;
+            return removido;
+        }
+        No<T> anterior = null;
+        for (int i = 0; i < posicao; i++) {
+            anterior = atual;
+            atual = atual.proximo;
+        }
+        assert anterior != null;
+        anterior.proximo = atual.proximo;
+        tamanho--;
+        return atual.dado;
     }
 
     @Override
@@ -55,5 +96,11 @@ public class Deque<T> implements Lista<T>{
     @Override
     public int obterIndice(Object elemento) {
         return 0;
+    }
+
+    private void verificarIndice(int indice) {
+        if (indice < 0 || indice >= tamanho) {
+            throw new IndexOutOfBoundsException("Índice inválido: " + indice);
+        }
     }
 }

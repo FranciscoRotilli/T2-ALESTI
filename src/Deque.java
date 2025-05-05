@@ -40,10 +40,10 @@ public class Deque<T> implements Lista<T>{
     @Override
     public T removerRegistro(int posicao) {
         verificarIndice(posicao);
-        No<T> atual = cabeca;
+        No<T> atual = cabeca.proximo;
         if (posicao == 0) {
-            T removido = cabeca.dado;
-            cabeca = cabeca.proximo;
+            T removido = atual.dado;
+            cabeca.proximo = atual.proximo;
             tamanho--;
             return removido;
         }

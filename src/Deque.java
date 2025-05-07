@@ -4,8 +4,8 @@ public class Deque<T> implements Lista<T>{
     private int tamanho;
 
     public Deque() {
-        this.cabeca = null;
-        this.cauda = null;
+        this.cabeca = new No<>(null);
+        this.cauda = new No<>(null);
         this.cabeca.proximo = cauda;
         this.cauda.anterior = cabeca;
         this.tamanho = 0;

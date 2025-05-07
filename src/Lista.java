@@ -2,6 +2,8 @@ public interface Lista<T> {
     void adicionarRegistro(T dado);
     T obterRegistro(int posicao);
     T removerRegistro(int posicao);
+    T removerUltimo();
+    T removerPrimeiro();
     int obterTamanho();
     void limparRegistros();
     boolean estaVazia();

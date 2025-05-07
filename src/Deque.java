@@ -89,6 +89,40 @@ public class Deque<T> implements Lista<T>{
     }
 
     @Override
+    public T removerUltimo() {
+        if(tamanho == 0) return null;
+        if(tamanho == 1) {
+            T aux = cauda.anterior.dado;
+            cabeca.proximo = cauda;
+            cauda.anterior = cabeca;
+            tamanho --;
+            return aux;
+        }
+        T aux = cauda.anterior.dado;
+        cauda.anterior.anterior.proximo = cauda;
+        cauda.anterior = cauda.anterior.anterior;
+        tamanho --;
+        return aux;
+    }
+
+    @Override
+    public T removerPrimeiro() {
+        if(tamanho == 0) return null;
+        if(tamanho == 1) {
+            T aux = cabeca.proximo.dado;
+            cabeca.proximo = cauda;
+            cauda.anterior = cabeca;
+            tamanho --;
+            return aux;
+        }
+        T aux = cabeca.proximo.dado;
+        cabeca.proximo.proximo.anterior = cabeca;
+        cabeca.proximo = cabeca.proximo.proximo;
+        tamanho --;
+        return aux;
+    }
+
+    @Override
     public T obterUltimoRegistro() {
         return null;
     }

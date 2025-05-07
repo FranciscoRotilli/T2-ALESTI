@@ -75,8 +75,18 @@ public class Deque<T> implements Lista<T>{
     }
 
     @Override
-    public void inserirNaPosicao(Object elemento, int posicao) {
-
+    public void inserirNaPosicao(T elemento, int posicao) {
+        verificarIndice(posicao);
+        No<T> novoNo = new No<>(elemento);
+        No<T> atual = cauda;
+        for (int i = 0; i < posicao; i++) {
+            atual = atual.proximo;
+        }
+        novoNo.anterior = atual;
+        novoNo.proximo = atual.proximo;
+        atual.proximo.anterior = novoNo;
+        atual.proximo=novoNo;
+        tamanho++;
     }
 
     @Override

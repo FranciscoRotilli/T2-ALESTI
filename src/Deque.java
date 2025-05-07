@@ -96,6 +96,19 @@ public class Deque<T> implements Lista<T>{
 
     @Override
     public T[] reverterLista() {
+        No<T> atual = cabeca;
+
+        while(atual != null){
+            No<T> noDepois = atual.proximo;
+            atual.proximo = atual.anterior;
+            atual.anterior = noDepois;
+            atual = noDepois;
+        }
+
+        No<T> temp = cabeca;
+        cabeca = cauda;
+        cauda = temp;        
+        
         return null;
     }
 

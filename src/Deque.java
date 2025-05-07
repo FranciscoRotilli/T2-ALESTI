@@ -1,6 +1,6 @@
 public class Deque<T> implements Lista<T>{
-    private No<T> cabeca;
-    private No<T> cauda;
+    private final No<T> cabeca;
+    private final No<T> cauda;
     private int tamanho;
 
     public Deque() {
@@ -14,14 +14,9 @@ public class Deque<T> implements Lista<T>{
     @Override
     public void adicionarRegistro(T dado) {
         No<T> novoNo = new No<>(dado);
-        if (cabeca.proximo == null) {
-            cabeca.proximo = novoNo;
-            novoNo.anterior = cabeca;
-        } else {
-            No<T> anterior = cauda.anterior;
-            anterior.proximo = novoNo;
-            novoNo.anterior = anterior;
-        }
+        No<T> anterior = cauda.anterior;
+        anterior.proximo = novoNo;
+        novoNo.anterior = anterior;
         novoNo.proximo = cauda;
         cauda.anterior = novoNo;
         tamanho++;
@@ -60,7 +55,7 @@ public class Deque<T> implements Lista<T>{
 
     @Override
     public int obterTamanho() {
-        return 0;
+        return tamanho;
     }
 
     @Override
@@ -146,5 +141,13 @@ public class Deque<T> implements Lista<T>{
         if (indice < 0 || indice >= tamanho) {
             throw new IndexOutOfBoundsException("Índice inválido: " + indice);
         }
+    }
+
+    public String toString() {
+        String ret = "";
+        for (int i = 0; i < tamanho; i++) {
+             ret += "Indice: " + i + " - " + obterRegistro(i) + "\n";
+        }
+        return ret;
     }
 }

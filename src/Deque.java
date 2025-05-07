@@ -43,19 +43,20 @@ public class Deque<T> implements Lista<T>{
         No<T> atual = cabeca.proximo;
         if (posicao == 0) {
             T removido = atual.dado;
+            atual.proximo.anterior = cabeca;
             cabeca.proximo = atual.proximo;
             tamanho--;
             return removido;
         }
-        No<T> anterior = null;
-        for (int i = 0; i < posicao; i++) {
-            anterior = atual;
+        for (int i = 0; i < posicao - 1; i++) {
             atual = atual.proximo;
         }
-        assert anterior != null;
-        anterior.proximo = atual.proximo;
+        T aux = atual.proximo.dado;
+        atual.proximo.proximo.anterior = atual;
+        atual.proximo = atual.proximo.proximo;
+
         tamanho--;
-        return atual.dado;
+        return aux;
     }
 
     @Override
@@ -91,35 +92,13 @@ public class Deque<T> implements Lista<T>{
     @Override
     public T removerUltimo() {
         if(tamanho == 0) return null;
-        if(tamanho == 1) {
-            T aux = cauda.anterior.dado;
-            cabeca.proximo = cauda;
-            cauda.anterior = cabeca;
-            tamanho --;
-            return aux;
-        }
-        T aux = cauda.anterior.dado;
-        cauda.anterior.anterior.proximo = cauda;
-        cauda.anterior = cauda.anterior.anterior;
-        tamanho --;
-        return aux;
+        return removerRegistro(tamanho -1);
     }
 
     @Override
     public T removerPrimeiro() {
         if(tamanho == 0) return null;
-        if(tamanho == 1) {
-            T aux = cabeca.proximo.dado;
-            cabeca.proximo = cauda;
-            cauda.anterior = cabeca;
-            tamanho --;
-            return aux;
-        }
-        T aux = cabeca.proximo.dado;
-        cabeca.proximo.proximo.anterior = cabeca;
-        cabeca.proximo = cabeca.proximo.proximo;
-        tamanho --;
-        return aux;
+        return removerRegistro(0);
     }
 
     @Override

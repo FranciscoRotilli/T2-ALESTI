@@ -9,7 +9,6 @@ public interface Lista<T> {
     boolean estaVazia();
     void inserirNaPosicao(T elemento, int posicao);
     boolean substituirRegistro(T antigo, T novo);
-    //T[] reverterLista();
     T obterUltimoRegistro();
     int obterIndice(T elemento);
     T[] toArray();

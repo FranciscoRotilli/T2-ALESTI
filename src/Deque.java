@@ -61,7 +61,9 @@ public class Deque<T> implements Lista<T>{
 
     @Override
     public void limparRegistros() {
-
+        this.cabeca.proximo = cauda;
+        this.cauda.anterior = cabeca;
+        this.tamanho = 0;
     }
 
     @Override
@@ -73,7 +75,7 @@ public class Deque<T> implements Lista<T>{
     public void inserirNaPosicao(T elemento, int posicao) {
         verificarIndice(posicao);
         No<T> novoNo = new No<>(elemento);
-        No<T> atual = cauda;
+        No<T> atual = cabeca.proximo;
         for (int i = 0; i < posicao; i++) {
             atual = atual.proximo;
         }
@@ -85,7 +87,15 @@ public class Deque<T> implements Lista<T>{
     }
 
     @Override
-    public boolean substituirRegistro(Object antigo, Object novo) {
+    public boolean substituirRegistro(T antigo, T novo) {
+        No<T> atual = cabeca.proximo;
+        while (atual != cauda) {
+            if (atual.dado.equals(antigo)) {
+                atual.dado = novo;
+                return true;
+            }
+            atual = atual.proximo;
+        }
         return false;
     }
 
@@ -121,12 +131,21 @@ public class Deque<T> implements Lista<T>{
 
     @Override
     public T obterUltimoRegistro() {
-        return null;
+        return cauda.anterior.dado;
     }
 
     @Override
     public int obterIndice(Object elemento) {
-        return 0;
+        No<T> atual = cabeca.proximo;
+        int indice = 0;
+        while (atual != cauda) {
+            if (atual.dado.equals(elemento)) {
+                return indice;
+            }
+            atual = atual.proximo;
+            indice++;
+        }
+        return -1; // Retorna -1 se o elemento não for encontrado
     }
 
     private void verificarIndice(int indice) {
@@ -141,5 +160,25 @@ public class Deque<T> implements Lista<T>{
              ret += "Indice: " + i + " - " + obterRegistro(i) + "\n";
         }
         return ret;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public T[] toArray() {
+        // Criação de um array genérico do tipo T
+        T[] array = (T[]) new Object[tamanho];
+
+        // Declaração das variáveis do loop a partir da cabeça da lista e tamanho 0
+        No<T> atual = cabeca;
+        int indice = 0;
+
+        while (atual != null) {
+            // Copia o elemento atual para o array
+            array[indice++] = atual.dado;
+
+            // O Atual vai para o próximo nó
+            atual = atual.proximo;
+        }
+        return array; // Retorna o array preenchido
     }
 }

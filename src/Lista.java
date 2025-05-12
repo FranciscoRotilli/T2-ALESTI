@@ -12,5 +12,5 @@ public interface Lista<T> {
     //T[] reverterLista();
     T obterUltimoRegistro();
     int obterIndice(T elemento);
-    //T[] toArray();
+    T[] toArray();
 }
